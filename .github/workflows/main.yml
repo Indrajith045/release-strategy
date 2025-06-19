@@ -2,7 +2,7 @@ name: Reusable Workflow To Deploy MuleSoft Application
  
 on:
  push:
-  branches: [ Dev ]
+  branches: [ PROD ]
 
 jobs:
   build:
@@ -33,10 +33,10 @@ jobs:
 
 
 
-  deploydev:
+  deployprod:
     needs: build
     runs-on: ubuntu-latest
-    environment: dev
+    environment: prod
     steps:    
     - name: Checkout this repo
       uses: actions/checkout@v4
@@ -47,7 +47,7 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-       
-    - name: Deploy to dev
+    - name: Deploy to prod
       run: |
         mvn deploy --settings .settings/org.eclipse.core.resources.prefs -DskipMunitTests -DmuleDeploy \
         -Danypoint.username="${{ secrets.USER }}" \
