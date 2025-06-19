@@ -2,7 +2,7 @@ name: Reusable Workflow To Deploy MuleSoft Application
  
 on:
  push:
-  branches: [ Dev ]
+  branches: [ UAT ]
 
 jobs:
   build:
@@ -33,10 +33,10 @@ jobs:
 
 
 
-  deploydev:
+  deployuat:
     needs: build
     runs-on: ubuntu-latest
-    environment: dev
+    environment: uat
     steps:    
     - name: Checkout this repo
       uses: actions/checkout@v4
